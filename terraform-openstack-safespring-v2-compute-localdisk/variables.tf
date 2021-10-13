@@ -44,3 +44,9 @@ variable "network" {
   type = string
   default = "public"
 }
+
+variable "security_groups" {
+  description = "List of security groups to be member of."
+  type = list
+  default = [ "default" ]
+}

@@ -8,9 +8,7 @@ resource "openstack_compute_instance_v2" "safespring_local_disk" {
     name = var.network
   }
 
-  security_groups = [
-    "default"
-  ]
+  security_groups = var.security_groups
   metadata = {
     role = var.role
   }

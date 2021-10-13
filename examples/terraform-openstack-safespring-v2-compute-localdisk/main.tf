@@ -13,3 +13,8 @@ module my_sf_instances_another_set{
   image = "centos-7"
   flavor = "lb.tiny"
 }
+
+output "instance_ip_addr" {
+  value       = module.my_sf_instances_another_set.IPv4
+  description = "The IPv4 addresses"
+}
