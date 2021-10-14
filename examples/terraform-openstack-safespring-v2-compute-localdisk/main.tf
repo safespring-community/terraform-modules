@@ -2,7 +2,8 @@
 # possible values and descriptions
 
 module my_sf_instances_tiny_a_set {
-  source = "../../terraform-openstack-safespring-v2-compute-localdisk"
+  #source = "../../terraform-openstack-safespring-v2-compute-localdisk"
+  source = "github.com/safespring-community/terraform-modules/terraform-openstack-safespring-v2-compute-localdisk"
   key_pair_name = "jarleb"
 }
 
