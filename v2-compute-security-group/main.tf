@@ -1,4 +1,4 @@
-resource "openstack_compute_secgroup_v2" "lb_in" {
+resource "openstack_compute_secgroup_v2" "sf_sg" {
   name        = "${var.name}"
   description = "${var.description}"
 
