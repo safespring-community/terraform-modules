@@ -8,3 +8,5 @@ Module description:
 * `v2-compute-security-group` for l-flavors (local disk) with extra data disk
 
 See the `examples` directory also
+
+NB: v2 in the module directory names relates to safespring v2 platform.
