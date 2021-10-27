@@ -3,6 +3,13 @@ resource "openstack_compute_secgroup_v2" "interconnect" {
   description = "${var.description}"
 
   rule {
+    ip_protocol = "icmp"
+    from_port   = "-1"
+    to_port     = "-1"
+    self        = true
+  }
+
+  rule {
     ip_protocol = "udp"
     from_port   = "1"
     to_port     = "65535"
