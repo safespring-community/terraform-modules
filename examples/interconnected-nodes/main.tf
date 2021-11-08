@@ -56,7 +56,7 @@ module interconnect {
 
 # Cluster nodes on the private net
 module  cluster_nodes {
-  source = "github.com/safespring-community/terraform-modules/v2-compute-localdisk-and-attached-disk"
+  source = "github.com/safespring-community/terraform-modules/v2-compute-local-disk-and-attached-disk"
   key_pair_name = openstack_compute_keypair_v2.skp.name
   security_groups = [module.interconnect.id]
   instance_count = 2
@@ -75,7 +75,7 @@ module  cluster_nodes {
 # servers but each group only have access to instancese in the same group
 
 module public_node {
-  source = "github.com/safespring-community/terraform-modules/v2-compute-localdisk"
+  source = "github.com/safespring-community/terraform-modules/v2-compute-local-disk"
   key_pair_name = openstack_compute_keypair_v2.skp.name
   security_groups = [module.public_sg.id,module.interconnect.id]
   instance_count = 1
