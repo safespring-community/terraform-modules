@@ -2,10 +2,8 @@
 # possible values and descriptions
 
 module my_sf_instances_tiny_a_set {
-  source = "../../v2-compute-central-disk-and-attached-disk"
-  # source = "github.com/safespring-community/terraform-modules/v2-compute-central-disk-and-attached-disk"
-  key_pair_name = "jarleb-yk-rsa"
-  security_groups = ["default","ssh-all"]
+  # source = "../../v2-compute-central-disk-and-attached-disk"
+   source = "github.com/safespring-community/terraform-modules/v2-compute-central-disk-and-attached-disk"
   # key_pair_name = "an-existing-keypair"
   # security_groups = ["some-existing","secgroups"]
   volume_size = 5
