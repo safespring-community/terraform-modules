@@ -33,9 +33,16 @@ resource "openstack_compute_instance_v2" "k8s_lb" {
   name       = "lb-${var.cluster_name}.${var.domain_name}"
 
   flavor_id  = data.openstack_compute_flavor_v2.loadbalancer_flavor.id
-  image_id = var.base_image_id
   security_groups = var.loadbalancer_sg_names
   user_data = data.ignition_config.lb.rendered
+
+  block_device {
+    uuid                  = var.base_image_id
+    source_type           = "image"
+    destination_type      = "volume"
+    volume_size           = var.lb_disk_size
+    delete_on_termination = true
+  }
 
   network {
     name = var.network_name

@@ -3,6 +3,11 @@ variable "base_image_id" {
   description = "The identifier of the Glance image for worker nodes."
 }
 
+variable "lb_disk_size" {
+  type = number
+  default = 20
+}
+
 variable "cluster_name" {}
 variable "domain_name" {}
 

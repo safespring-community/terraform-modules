@@ -67,6 +67,7 @@ variable "image" {
 variable "openstack_loadbalancer_flavor_name" {
   type = string
   description = "Instance size for the loadbalancer node. Example: `m1.medium`."
+  default = "m.small"
 }
 
 variable "openstack_master_flavor_name" {
