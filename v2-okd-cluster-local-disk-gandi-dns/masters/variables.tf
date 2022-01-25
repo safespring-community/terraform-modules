@@ -25,4 +25,3 @@ variable "user_data_ign" {
 }
 
 variable "network_name" {}
-variable "master_volume_size" {}

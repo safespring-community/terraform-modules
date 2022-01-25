@@ -16,9 +16,6 @@ variable "flavor_name" {
 }
 
 variable "network_name" {}
-variable "ssh_user" {}
-
-variable "number_of_boot" {}
 
 variable "loadbalancer_sg_names" {
   type        = list(string)

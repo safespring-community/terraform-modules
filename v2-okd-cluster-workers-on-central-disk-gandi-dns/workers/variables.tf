@@ -30,4 +30,3 @@ variable "user_data_ign" {
 }
 
 variable "network_name" {}
-variable "worker_volume_size" {}
