@@ -7,9 +7,6 @@ module "loadbalancer" {
   flavor_name    = var.openstack_loadbalancer_flavor_name
   network_name   = var.network_name
 
-  ssh_user       = var.ssh_user
-  number_of_boot = var.number_of_boot
-
   loadbalancer_sg_names = module.topology.loadbalancer_sg_names
 
   ssh_public_key_path = var.public_key_path
