@@ -9,7 +9,7 @@ data "ignition_file" "hostname" {
 
   content {
     content = <<EOF
-worker-${count.index+1}-${var.cluster_name}.${var.domain_name}
+${var.prefix}-${count.index+1}-${var.cluster_name}.${var.domain_name}
 EOF
   }
 }
@@ -57,7 +57,7 @@ data "ignition_config" "worker_ignition_config" {
 }
 
 resource "openstack_compute_instance_v2" "k8s_worker" {
-  name = "worker-${count.index+1}-${var.cluster_name}.${var.domain_name}"
+  name = "${var.prefix}-${count.index+1}-${var.cluster_name}.${var.domain_name}"
   count = var.instance_count
 
   flavor_id = data.openstack_compute_flavor_v2.workers_flavor.id
@@ -79,7 +79,7 @@ resource "openstack_compute_instance_v2" "k8s_worker" {
 
 resource "gandi_livedns_record" "worker_instances" {
   zone        = var.domain_name
-  name        = "worker-${count.index+1}-${var.cluster_name}"
+  name        = "${var.prefix}-${count.index+1}-${var.cluster_name}"
   count       = var.instance_count
   ttl         = 300
   type        = "A"

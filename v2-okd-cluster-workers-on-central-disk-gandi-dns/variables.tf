@@ -72,7 +72,7 @@ variable "image" {
 variable "openstack_loadbalancer_flavor_name" {
   type = string
   description = "Instance size for the loadbalancer node. Example: `m1.medium`."
-  deafualt = "m.small"
+  default = "m.small"
 }
 
 variable "openstack_master_flavor_name" {
@@ -108,4 +108,26 @@ variable "allow_all_ports_from_v4" {
 variable "allow_api_from_v4" {
   type = list(string)
   default = []
+}
+
+# Worker sets
+variable "workersets" {
+  type = map(object({
+    prefix  = string
+    flavor  = string
+    count   = number
+  }))
+  default = {}
+#  default = {
+#    "first" = {
+#      prefix = "medium"
+#      flavor = "lm.medium.1d"
+#      count = 2
+#    }
+#    "second" = {
+#      prefix = "large"
+#      flavor = "lm.large.1d"
+#      count = 2
+#    }
+#  }
 }

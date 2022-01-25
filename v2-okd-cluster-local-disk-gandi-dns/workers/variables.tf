@@ -3,6 +3,7 @@ variable "base_image_id" {
   description = "The identifier of the Glance image for worker nodes."
 }
 
+variable "prefix" {}
 variable "cluster_name" {}
 variable "domain_name" {}
 

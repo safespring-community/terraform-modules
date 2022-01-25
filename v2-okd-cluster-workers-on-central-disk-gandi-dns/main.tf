@@ -18,7 +18,7 @@ module "loadbalancer" {
     module.bootstrap.ip_addresses[0],
     module.masters.ip_addresses]
   )
-  ingress_backend_addresses = flatten([module.workers.ip_addresses])
+  ingress_backend_addresses = flatten([for i in keys(var.workersets) : module.workers[i].ip_addresses])
 }
 
 module "bootstrap" {
@@ -55,12 +55,13 @@ module "masters" {
 
 module "workers" {
   source = "./workers"
-
+  for_each        = var.workersets
   base_image_id     = data.openstack_images_image_v2.base_image.id
   cluster_name      = var.cluster_name
   domain_name       = var.domain_name
-  flavor_name       = var.openstack_worker_flavor_name
-  instance_count    = var.number_of_workers
+  flavor_name       = each.value.flavor
+  instance_count    = each.value.count
+  prefix            = each.value.prefix
   worker_disk_size  = var.worker_disk_size
   network_name      = var.network_name
   user_data_ign     = var.ignition_worker
