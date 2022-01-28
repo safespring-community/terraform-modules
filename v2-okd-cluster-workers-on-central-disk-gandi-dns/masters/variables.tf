@@ -1,3 +1,8 @@
+variable "affinity" {
+  type        = string
+  description = "Affinity for masters. Choose between anti-affinity (hard) and soft-anti-affinity "
+}
+
 variable "base_image_id" {
   type        = string
   description = "The identifier of the Glance image for master nodes."

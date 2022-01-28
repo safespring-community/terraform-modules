@@ -1,3 +1,9 @@
+variable "affinity" {
+  type        = string
+  description = "Affinity for masters. Choose between anti-affinity (hard) and soft-anti-affinity "
+  default     = "soft-anti-affinity"
+}
+
 variable "openstack_base_image_name" {
   type        = string
   description = "Name of the base image to use for the nodes."

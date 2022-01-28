@@ -56,6 +56,10 @@ data "ignition_config" "master_ignition_config" {
 
   ]
 }
+resource "openstack_compute_servergroup_v2" "servergroup" {
+  name     = "${var.cluster_name}-masters"
+  policies = [ var.affinity ]
+}
 
 resource "openstack_compute_instance_v2" "master_conf" {
   name = "master-${count.index+1}-${var.cluster_name}.${var.domain_name}"
@@ -68,6 +72,10 @@ resource "openstack_compute_instance_v2" "master_conf" {
     data.ignition_config.master_ignition_config.*.rendered,
     count.index,
   )
+
+  scheduler_hints {
+    group = "${openstack_compute_servergroup_v2.servergroup.id}"
+  }
 
   network {
     name = var.network_name

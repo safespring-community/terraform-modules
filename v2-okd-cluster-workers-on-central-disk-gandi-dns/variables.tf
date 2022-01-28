@@ -1,3 +1,9 @@
+variable "affinity" {
+  type        = string
+  description = "Affinity for masters. Choose between anti-affinity (hard) and soft-anti-affinity "
+  default     = "soft-anti-affinity"
+}
+
 variable "worker_disk_size" {
   type        = string
   description = "Size of the worker root disk in GB"
