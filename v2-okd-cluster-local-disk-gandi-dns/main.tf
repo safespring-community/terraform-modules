@@ -31,7 +31,7 @@ module "masters" {
   base_image_id   = data.openstack_images_image_v2.base_image.id
   cluster_name    = var.cluster_name
   domain_name     = var.domain_name
-  affinity        = var.affinity
+  master_affinity = var.master_affinity
   flavor_name     = var.openstack_master_flavor_name
   instance_count  = var.number_of_masters
   network_name    = var.network_name

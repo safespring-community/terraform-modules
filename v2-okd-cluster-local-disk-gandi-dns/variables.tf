@@ -1,4 +1,4 @@
-variable "affinity" {
+variable "master_affinity" {
   type        = string
   description = "Affinity for masters. Choose between anti-affinity (hard) and soft-anti-affinity "
   default     = "soft-anti-affinity"
