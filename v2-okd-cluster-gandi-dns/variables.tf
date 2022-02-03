@@ -80,10 +80,10 @@ variable "allow_api_from_v4" {
 
 # Worker sets
 variable "workersets" {
-  type = map(object({
-    prefix  = string
-    flavor  = string
-    count   = number
+  type        = map(object({
+    prefix    = string
+    flavor    = string
+    count     = number
     disk_size = number
   }))
   default = {}
@@ -92,11 +92,13 @@ variable "workersets" {
 #      prefix = "medium"
 #      flavor = "lm.medium.1d"
 #      count = 2
+#      disk_size = 0
 #    }
 #    "second" = {
-#      prefix = "large"
-#      flavor = "lm.large.1d"
+#      prefix = "cinder-large"
+#      flavor = "m.large"
 #      count = 2
+#      disk_size = 70
 #    }
 #  }
 }
