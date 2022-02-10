@@ -1,32 +1,10 @@
+resource "openstack_compute_keypair_v2" "kp" {
+  name       = "Loadalancer key pair"
+  public_key = chomp(file(var.ssh_pubkey_path))
+}
+
 data "openstack_compute_flavor_v2" "loadbalancer_flavor" {
   name = var.flavor_name
-}
-
-data "ignition_systemd_unit" "haproxy" {
-  name    = "haproxy.service"
-  content = file("${path.module}/haproxy.service")
-}
-
-data "ignition_file" "haproxy" {
-  path       = "/etc/haproxy/haproxy.conf"
-  mode       = "420" // 0644
-  content {
-    content = templatefile("${path.module}/haproxy.tmpl", {
-      api           = var.api_backend_addresses,
-      ingress       = var.ingress_backend_addresses
-    })
-  }
-}
-
-data "ignition_user" "core" {
-  name                = "core"
-  ssh_authorized_keys = [file(var.ssh_public_key_path)]
-}
-
-data "ignition_config" "lb" {
-  users   = [data.ignition_user.core.rendered]
-  files   = [data.ignition_file.haproxy.rendered]
-  systemd = [data.ignition_systemd_unit.haproxy.rendered]
 }
 
 resource "openstack_compute_instance_v2" "k8s_lb" {
@@ -34,14 +12,14 @@ resource "openstack_compute_instance_v2" "k8s_lb" {
 
   flavor_id  = data.openstack_compute_flavor_v2.loadbalancer_flavor.id
   security_groups = var.loadbalancer_sg_names
-  user_data = data.ignition_config.lb.rendered
+  key_pair   = openstack_compute_keypair_v2.kp.name
 
   network {
     name = var.network_name
   }
 
   block_device {
-    uuid                  = var.base_image_id
+    uuid                  = var.image_id
     source_type           = "image"
     destination_type      = "volume"
     volume_size           = var.lb_disk_size

@@ -1,3 +1,13 @@
+variable "lb_image_name" {
+  type        = string
+  description = "Image name for loadbalancer"
+}
+
+variable "lb_ssh_pubkey_path" {
+  type        = string
+  description = "Full path of loadbalnacer ssh public key"
+}
+
 variable "master_affinity" {
   type        = string
   description = "Affinity for masters. Choose between anti-affinity (hard) and soft-anti-affinity "
@@ -27,10 +37,6 @@ variable "ignition_worker" {
 
 variable "cluster_name" {
   default = "example"
-}
-
-variable "public_key_path" {
-  default     = "~/.ssh/id_rsa.pub"
 }
 
 variable "number_of_boot" {

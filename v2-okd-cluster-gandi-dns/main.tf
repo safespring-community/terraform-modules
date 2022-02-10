@@ -1,17 +1,12 @@
 module "loadbalancer" {
   source                    = "./loadbalancer"
-  base_image_id             = data.openstack_images_image_v2.base_image.id
+  image_id             = data.openstack_images_image_v2.lb_image.id
   cluster_name              = var.cluster_name
   domain_name               = var.domain_name
   flavor_name               = var.openstack_loadbalancer_flavor_name
+  ssh_pubkey_path           = var.lb_ssh_pubkey_path
   network_name              = var.network_name
   loadbalancer_sg_names     = module.topology.loadbalancer_sg_names
-  ssh_public_key_path       = var.public_key_path
-  api_backend_addresses     = flatten([
-    module.bootstrap.ip_addresses[0],
-    module.masters.ip_addresses]
-  )
-  ingress_backend_addresses = flatten([for i in keys(var.workersets) : module.workers[i].ip_addresses])
 }
 
 module "bootstrap" {
@@ -64,4 +59,8 @@ module "topology" {
 
 data "openstack_images_image_v2" "base_image" {
   name = var.openstack_base_image_name
+}
+
+data "openstack_images_image_v2" "lb_image" {
+  name = var.lb_image_name
 }

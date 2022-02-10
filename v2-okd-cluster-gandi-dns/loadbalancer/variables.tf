@@ -1,6 +1,11 @@
-variable "base_image_id" {
+variable "ssh_pubkey_path" {
   type        = string
-  description = "The identifier of the Glance image for worker nodes."
+  description = "Full path of the ssh public key file"
+}
+
+variable "image_id" {
+  type        = string
+  description = "Image id"
 }
 
 variable "lb_disk_size" {
@@ -20,14 +25,4 @@ variable "network_name" {}
 variable "loadbalancer_sg_names" {
   type        = list(string)
   default     = ["default"]
-}
-
-variable "ssh_public_key_path" {}
-
-variable "api_backend_addresses" {
-  type = list(string)
-}
-
-variable "ingress_backend_addresses" {
-  type = list(string)
 }
