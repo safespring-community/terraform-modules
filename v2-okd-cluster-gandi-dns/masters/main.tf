@@ -86,14 +86,14 @@ resource "openstack_compute_instance_v2" "master_conf" {
   }
 }
 
-resource "gandi_livedns_record" "master_instances" {
-  zone        = var.domain_name
-  name        = "master-${count.index+1}-${var.cluster_name}"
-  count       = var.instance_count
-  ttl         = 300
-  type        = "A"
-  values      = [element(openstack_compute_instance_v2.master_conf.*.access_ip_v4,count.index)]
-}
+#resource "gandi_livedns_record" "master_instances" {
+#  zone        = var.domain_name
+#  name        = "master-${count.index+1}-${var.cluster_name}"
+#  count       = var.instance_count
+#  ttl         = 300
+#  type        = "A"
+#  values      = [element(openstack_compute_instance_v2.master_conf.*.access_ip_v4,count.index)]
+#}
 
 resource "gandi_livedns_record" "etcd_instances" {
   zone        = var.domain_name

@@ -19,11 +19,11 @@ resource "openstack_compute_instance_v2" "bootstrap" {
   }
 }
 
-resource "gandi_livedns_record" "boot_instance" {
-  zone        = var.domain_name
-  name        = "boot-${var.cluster_name}"
-  count       = var.instance_count
-  ttl         = 300
-  type        = "A"
-  values      = [element(openstack_compute_instance_v2.bootstrap.*.access_ip_v4,count.index)]
-}
+#resource "gandi_livedns_record" "boot_instance" {
+#  zone        = var.domain_name
+#  name        = "boot-${var.cluster_name}"
+#  count       = var.instance_count
+#  ttl         = 300
+#  type        = "A"
+#  values      = [element(openstack_compute_instance_v2.bootstrap.*.access_ip_v4,count.index)]
+#}
