@@ -14,12 +14,13 @@ resource "openstack_compute_secgroup_v2" "lb_in" {
     to_port     = "443"
     cidr        = "0.0.0.0/0"
   }
-  rule {
-    ip_protocol = "tcp"
-    from_port   = "5671"
-    to_port     = "5671"
-    cidr        = "0.0.0.0/0"
-  }
+# Workaround for default network / NAT 
+##  rule {
+#    ip_protocol = "tcp"
+#    from_port   = "22623"
+#    to_port     = "22623"
+#    cidr        = "185.189.29.208/28"
+#  }
 }
 
 resource "openstack_compute_secgroup_v2" "k8s" {

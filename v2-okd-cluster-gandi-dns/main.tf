@@ -5,7 +5,7 @@ module "loadbalancer" {
   domain_name               = var.domain_name
   flavor_name               = var.openstack_loadbalancer_flavor_name
   ssh_pubkey_path           = var.lb_ssh_pubkey_path
-  network_name              = var.network_name
+  network_name              = "public"
   loadbalancer_sg_names     = module.topology.loadbalancer_sg_names
 }
 

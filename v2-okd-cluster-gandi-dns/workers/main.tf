@@ -14,32 +14,32 @@ EOF
   }
 }
 
-data "ignition_filesystem" "vdb" {
-  # Trigger this only for l-flavors
-  for_each = local.disk_devices
-  device = "/dev/vdb"
-  format = "xfs"
-  wipe_filesystem = true
-  path = "/var/lib/containers"
-}
+#data "ignition_filesystem" "vdb" {
+#  # Trigger this only for l-flavors
+#  for_each = local.disk_devices
+##  device = "/dev/vdb"
+#  format = "xfs"
+#  wipe_filesystem = true
+#  path = "/var/lib/containers"
+#}
 
-data "ignition_systemd_unit" "var_lib_containers" {
-  for_each = local.disk_devices
-  name = "var-lib-containers.mount"
-  content = <<EOF
-[Unit]
-Description=Mount /var/lib/containers
-Before=local-fs.target
+#data "ignition_systemd_unit" "var_lib_containers" {
+#  for_each = local.disk_devices
+#  name = "var-lib-containers.mount"
+#  content = <<EOF
+#[Unit]
+#Description=Mount /var/lib/containers
+#Before=local-fs.target
+#
+#[Mount]
+#What=/dev/vdb
+#Where=/var/lib/containers
+#Type=xfs
 
-[Mount]
-What=/dev/vdb
-Where=/var/lib/containers
-Type=xfs
-
-[Install]
-WantedBy=local-fs.target
-EOF
-}
+#[Install]
+#WantedBy=local-fs.target
+#EOF
+#}
 
 data "ignition_config" "worker_ignition_config" {
   count = var.instance_count
@@ -51,14 +51,14 @@ data "ignition_config" "worker_ignition_config" {
   files = [
     element(data.ignition_file.hostname.*.rendered, count.index)
   ]
-  filesystems = [
-    # List of all instances of data.ignition_filesystem.vdb , which means either one (dummy) or none
-    for i in local.disk_devices : data.ignition_filesystem.vdb[i].rendered
-  ]
-  systemd = [
-    # List of all instances of data.ignition_systemd_unit.var_lib_containers, which means either one (dummy) or none
-    for i in local.disk_devices : data.ignition_systemd_unit.var_lib_containers[i].rendered
-  ]
+#  filesystems = [
+#    # List of all instances of data.ignition_filesystem.vdb , which means either one (dummy) or none
+#    for i in local.disk_devices : data.ignition_filesystem.vdb[i].rendered
+#  ]
+#  systemd = [
+#    # List of all instances of data.ignition_systemd_unit.var_lib_containers, which means either one (dummy) or none
+#    for i in local.disk_devices : data.ignition_systemd_unit.var_lib_containers[i].rendered
+#  ]
 }
 
 # Some intellegence wrt to setting correct disk size based on flavor

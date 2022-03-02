@@ -14,29 +14,29 @@ master-${count.index+1}-${var.cluster_name}.${var.domain_name}
 EOF
   }
 }
-data "ignition_filesystem" "vdb" {
-  device = "/dev/vdb"
-  format = "xfs"
-  wipe_filesystem = true
-  path = "/var/lib/containers"
-}
+#data "ignition_filesystem" "vdb" {
+#  device = "/dev/vdb"
+#  format = "xfs"
+#  wipe_filesystem = true
+#  path = "/var/lib/containers"
+#}
 
-data "ignition_systemd_unit" "var_lib_containers" {
-  name = "var-lib-containers.mount"
-  content = <<EOF
-[Unit]
-Description=Mount /var/lib/containers
-Before=local-fs.target
-
-[Mount]
-What=/dev/vdb
-Where=/var/lib/containers
-Type=xfs
-
-[Install]
-WantedBy=local-fs.target
-EOF
-}
+#data "ignition_systemd_unit" "var_lib_containers" {
+#  name = "var-lib-containers.mount"
+#  content = <<EOF
+#[Unit]
+#Description=Mount /var/lib/containers
+#Before=local-fs.target
+#
+#[Mount]
+#What=/dev/vdb
+#Where=/var/lib/containers
+#Type=xfs
+#
+#[Install]
+#WantedBy=local-fs.target
+#EOF
+#}
 
 data "ignition_config" "master_ignition_config" {
   count = var.instance_count
@@ -48,13 +48,13 @@ data "ignition_config" "master_ignition_config" {
   files = [
     element(data.ignition_file.hostname.*.rendered, count.index)
   ]
-  filesystems = [
-    data.ignition_filesystem.vdb.rendered
-  ]
-  systemd = [
-    data.ignition_systemd_unit.var_lib_containers.rendered
-
-  ]
+#  filesystems = [
+#    data.ignition_filesystem.vdb.rendered
+#  ]
+#  systemd = [
+#    data.ignition_systemd_unit.var_lib_containers.rendered
+#
+#  ]
 }
 resource "openstack_compute_servergroup_v2" "servergroup" {
   name     = "${var.cluster_name}-masters"
