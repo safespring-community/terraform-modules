@@ -41,6 +41,11 @@ EOF
 #EOF
 #}
 
+resource "openstack_compute_servergroup_v2" "servergroup" {
+  name     = "${var.cluster_name}-${var.workerset_key}-workerset"
+  policies = [ "soft-anti-affinity" ]
+}
+
 data "ignition_config" "worker_ignition_config" {
   count = var.instance_count
 
@@ -94,6 +99,10 @@ resource "openstack_compute_instance_v2" "k8s_worker" {
       delete_on_termination = true
       boot_index            = 0
     }
+  }
+
+  scheduler_hints {
+    group = openstack_compute_servergroup_v2.servergroup.id
   }
 
   network {

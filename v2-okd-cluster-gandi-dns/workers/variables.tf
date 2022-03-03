@@ -1,3 +1,8 @@
+variable "workerset_key" {
+  type        = string
+  description = "Identify  each workerset.)"
+}
+
 variable "disk_size" {
   type = number
   description = "Size of boot disk. If 0 then flavor must =~ m/^l.+$ (instance with local NVMe)"

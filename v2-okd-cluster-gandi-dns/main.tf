@@ -40,6 +40,7 @@ module "workers" {
   base_image_id    = data.openstack_images_image_v2.base_image.id
   cluster_name     = var.cluster_name
   domain_name      = var.domain_name
+  workerset_key    = each.key
   flavor_name      = each.value.flavor
   instance_count   = each.value.count
   disk_size        = each.value.disk_size
