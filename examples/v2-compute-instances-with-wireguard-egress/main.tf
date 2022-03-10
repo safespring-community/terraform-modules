@@ -5,8 +5,7 @@ module a_set_of_instances {
    count = 3
    name          = "wg-${count.index + 1}.example.com"
    #key_pair_name = "your-keypair-name-here"
-   key_pair_name = "jb-jump"
-   security_groups = ["ANY-ANY"]
+   # security_groups = ["allow-ssh-and-wireguard"]
    wg_ip         = cidrhost("192.168.45.0/24",count.index + 1)
 }
 
