@@ -1,3 +1,9 @@
+variable "wg_ip" {
+  description = "Wireguard IP. To be used with as inventory to allocate a potential wg addresse for this peer"
+  type        = string
+  default     = ""
+}
+
 variable "config_drive" {
   description = "Use config drive or not: default = false"
   type        = bool

@@ -27,6 +27,7 @@ resource "openstack_compute_instance_v2" "safespring_instance" {
 
   metadata = {
     role = var.role
+    wg_ip = var.wg_ip
   }
 
   dynamic "block_device" {
