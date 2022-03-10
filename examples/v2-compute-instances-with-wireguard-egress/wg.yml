@@ -1,0 +1,13 @@
+- hosts: wireguard_gateway
+  vars:
+    wireguard_address: "{{metadata.wg_ip}}"
+  tasks:
+    - include_role: 
+        name: ansible-role-wireguard
+
+- hosts: wireguard_clients
+  vars:
+    wireguard_address: "{{metadata.wg_ip}}"
+  tasks:
+    - include_role: 
+        name: ansible-role-wireguard

@@ -1,0 +1,12 @@
+[wireguard_gateway]
+[wireguard_gateway:children]
+os_metadata_wg_ip=192.168.45.1
+
+[wireguard_gateway:vars]
+wireguard_forward_interface=ens3
+wireguard_connect_interface=ens3
+
+[wireguard_clients]
+[wireguard_clients:children]
+os_metadata_wg_ip=192.168.45.2
+os_metadata_wg_ip=192.168.45.3
