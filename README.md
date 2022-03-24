@@ -3,8 +3,7 @@ General purpose terraform modules for use with the Safespring platform
 
 Module description:
 
-* `v2-compute-localdisk` for l-flavors (local disk) without extra data disk
-* `v2-compute-localdisk-and-attached-disk` for l-flavors (local disk) with extra data disk
+* `v2-compute-instance` for all flavors and additional disk(s). The module automatically switches to `boot-from-volume` if flavor is without local disk (and vice versa).
 * `v2-compute-security-group` general security groups
 * `v2-compute-interconnect-security-group` interconnect security groups
 
