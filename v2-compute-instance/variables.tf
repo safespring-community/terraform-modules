@@ -17,9 +17,9 @@ variable "disk_size" {
 }
 
 variable "flavor" {
-  description = "Openstack instance flavors with local disk. (One of openstack ‹openstack flavor list -f json | jq -r '.[].Name'|grep ^l›)"
+  description = "Openstack instance flavor. (One of openstack ‹openstack flavor list -f json | jq -r '.[].Name'|grep ^l›)"
   type        = string
-  default     = "b2.c1r2"
+  default     = "l2.c2r4.100"
 }
 
 variable "name" {
@@ -51,6 +51,11 @@ variable "network" {
   default = "public"
 }
 
+# Default security will be added regardless if this list is empty. Openstack defaults to make it hard to remove 
+# default egress to the world. Openstack also defaults to create egress to the world when new security groups are createda
+# If you provide a specific list of security groups, and default is not in that list, then default will not be added. 
+# If you combine that with the delete_default_rules when creating those other security groups
+# it is possible to work around this astonishing behavior
 variable "security_groups" {
   description = "List of security groups to be member of."
   type = list
