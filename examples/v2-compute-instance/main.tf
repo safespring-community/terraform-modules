@@ -3,8 +3,8 @@
 
 
 module my_sf_instance {
-   # source          = "github.com/safespring-community/terraform-modules/v2-compute-instance"
-   # name            = "hello-safespring-1.example.com"
+   source          = "github.com/safespring-community/terraform-modules/v2-compute-instance"
+   # name            = "hello-safespring"
    # key_pair_name   = "your-keypair"
    # config_drive    = false
    # disk_size       = 5                 # When using b2-flavors
