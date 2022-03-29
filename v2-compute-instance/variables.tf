@@ -48,7 +48,7 @@ variable "image" {
 variable "network" {
   description = "Network to place instance on. One of: ‹openstack network list›"
   type = string
-  default = "public"
+  default = "default"
 }
 
 # Default security will be added regardless if this list is empty. Openstack defaults to make it hard to remove 
