@@ -1,6 +1,6 @@
 ## Usage
 
-Self contained example using Safespring Terraform module together with an ansible role for wireguard gatway and clients
+Self contained example using Safespring Terraform module together with an ansible role for wireguard gateway and clients
 
 To install ansible role:
 
