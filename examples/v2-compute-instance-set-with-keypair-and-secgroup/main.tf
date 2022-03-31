@@ -1,5 +1,6 @@
+# Create a security group using a safespring module
 terraform {
-required_version = ">= 0.14.0"
+  required_version = ">= 0.14.0"
   required_providers {
     openstack = {
       source  = "terraform-provider-openstack/openstack"
@@ -14,26 +15,26 @@ resource "openstack_compute_keypair_v2" "skp" {
   public_key = "${chomp(file("~/.ssh/id_rsa.pub"))}"
 }
 
-# Create a security group using a safespring module
 module puff {
    source = "github.com/safespring-community/terraform-modules/v2-compute-security-group"
    name = "bowl-of-petunias"
    description = "Oh no! Not again"
-   rules = [
-     {
+   rules = {
+     one = {
        ip_protocol = "tcp"
-       to_port = "80"
-       from_port = "80"
+       to_port = "22"
+       from_port = "22"
+       ethertype = "IPv4"
        cidr = "0.0.0.0/0"
-     },
-     {
+     }
+     two = {
        ip_protocol = "tcp"
        to_port = "443"
        from_port = "443"
+       ethertype = "IPv4"
        cidr = "0.0.0.0/0"
      }
-
-   ]
+  }
 }
 
 module my_sf_instances {
