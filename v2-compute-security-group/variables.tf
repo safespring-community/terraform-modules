@@ -1,13 +1,6 @@
 variable "rules" {
-  type = list(map(string))
-  default = [
-    {
-      "ip_protocol" = "icmp"
-      "from_port" = -1
-      "to_port" = -1
-      "cidr" = "0.0.0.0/0"
-    }
-  ]
+  description = "Map of maps describing rules"
+  type = map(map(string))
 }
 
 variable "name" {
@@ -20,4 +13,10 @@ variable "description" {
   description = "Description of the description of the security group ;-)"
   type = string
   default = "Quod erat demonstrandum"
+}
+
+variable "delete_default_rules" {
+  description = "Should the default rules added by openstack be remover "
+  type = bool
+  default = false
 }
