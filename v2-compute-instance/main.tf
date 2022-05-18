@@ -19,6 +19,12 @@ resource "openstack_compute_instance_v2" "safespring_instance" {
   key_pair     = var.key_pair_name
   config_drive = var.config_drive
 
+  dynamic "scheduler_hints" {
+    for_each = var.servergroup_id != "" ? ["dummy_element"] : []
+    content {
+      group = var.servergroup_id
+    }
+  }
   network {
     name = var.network
   }

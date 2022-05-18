@@ -1,3 +1,8 @@
+variable "servergroup_id" {
+  description = "Scheduler hints / Servergroup id"
+  type        = string
+  default     = ""
+}
 variable "wg_ip" {
   description = "Wireguard IP. To be used with as inventory to allocate a potential wg addresse for this peer"
   type        = string
