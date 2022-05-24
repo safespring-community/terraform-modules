@@ -1,0 +1,20 @@
+- hosts: os_metadata_role=webserver
+  gather_facts: no
+  become: true
+  tasks:
+    - name: Wait 600 seconds for target connection to become reachable/usable
+      wait_for_connection:
+
+    - name: gather facts
+      setup:
+
+    - name: Make sure nginx is installed
+      apt:
+        update_cache: yes
+        name: "nginx"
+        state: present
+
+    - name: An example index.html file
+      copy:
+        dest: "/var/www/html/index.html"
+        content: "<html><h1>Welcome to {{ansible_hostname}}</h1></html>"
