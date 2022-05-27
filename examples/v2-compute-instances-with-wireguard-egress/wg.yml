@@ -1,4 +1,6 @@
 - hosts: wireguard_gateway
+  become: yes
+  remote_user: ubuntu
   vars:
     wireguard_address: "{{metadata.wg_ip}}"
   tasks:
@@ -6,6 +8,8 @@
         name: ansible-role-wireguard
 
 - hosts: wireguard_clients
+  become: yes
+  remote_user: ubuntu
   vars:
     wireguard_address: "{{metadata.wg_ip}}"
   tasks:
