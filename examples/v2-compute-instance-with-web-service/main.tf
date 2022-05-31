@@ -11,7 +11,7 @@ terraform {
 # An openstack keypair contains only the public key. Thus a misleading name for it.
 resource "openstack_compute_keypair_v2" "skp" {
   name       = "hello-pubkey"
-  public_key = "${chomp(file("~/.ssh/id_rsa_jump.pub"))}"
+  public_key = "${chomp(file("~/.ssh/id_rsa.pub"))}"
 }
 
 module ingress {
