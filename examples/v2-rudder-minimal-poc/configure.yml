@@ -1,0 +1,24 @@
+---
+
+- name: Install Rudder Server
+  hosts: os_metadata_role=rudder_server
+  become: yes
+  collections:
+    - rudder.rudder
+  tasks:
+    - import_role:
+        name: rudder.rudder.rudder_server
+      vars:
+        server_version: 7.0
+
+- name: Install Rudder agents
+  hosts: os_metadata_role=rudder_client
+  become: yes
+  collections:
+    - rudder.rudder
+  tasks:
+    - import_role:
+        name: rudder.rudder.rudder_agent
+      vars:
+        agent_version: 7.0
+        policy_server: "{{hostvars['rudder-server.example.com']['ansible_default_ipv4']['address']}}"
