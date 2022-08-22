@@ -11,47 +11,18 @@ terraform {
 # An openstack keypair contains only the public key. Thus a misleading name for it.
 resource "openstack_compute_keypair_v2" "skp" {
   name       = "hello-pubkey"
-  public_key = "${chomp(file("~/.ssh/id_rsa_jump.pub"))}"
+  public_key = "${chomp(file("~/.ssh/id_rsa.pub"))}"
 }
 
 module interconnect {
    source = "github.com/safespring-community/terraform-modules/v2-compute-security-group"
    name = "interconnect"
    delete_default_rules = true
-   description = "For interconnecting servers with full network access between members"
+   description = "For interconnecting servers with full network access between members, egress to the world and ssh from the world"
    rules = {
      ingress = {
        direction       = "ingress"
        remote_group_id = "self"
-     }
-     egress = {
-       direction       = "egress"
-       remote_group_id = "self"
-     }
-  }
-}
-
-module ingress {
-   source = "github.com/safespring-community/terraform-modules/v2-compute-security-group"
-   name = "ingress"
-   delete_default_rules = true
-   description = "For for ssh access from the world, and egress from nodes"
-   rules = {
-     http = {
-       direction   = "ingress"
-       ip_protocol = "tcp"
-       to_port     = "80"
-       from_port   = "80"
-       ethertype   = "IPv4"
-       cidr        = "62.92.224.122/32"
-     }
-     https = {
-       direction   = "ingress"
-       ip_protocol = "tcp"
-       to_port     = "443"
-       from_port   = "443"
-       ethertype   = "IPv4"
-       cidr        = "62.92.224.122/32"
      }
      ssh = {
        direction   = "ingress"
@@ -64,7 +35,32 @@ module ingress {
   }
 }
 
-module my_gw {
+module ingress {
+   source = "github.com/safespring-community/terraform-modules/v2-compute-security-group"
+   name = "ingress"
+   delete_default_rules = true
+   description = "For ingress http/https traffic to the Rudder server"
+   rules = {
+     http = {
+       direction   = "ingress"
+       ip_protocol = "tcp"
+       to_port     = "80"
+       from_port   = "80"
+       ethertype   = "IPv4"
+       cidr        = "0.0.0.0/0"
+     }
+     https = {
+       direction   = "ingress"
+       ip_protocol = "tcp"
+       to_port     = "443"
+       from_port   = "443"
+       ethertype   = "IPv4"
+       cidr        = "0.0.0.0/0"
+     }
+  }
+}
+
+module my_srv {
    source          = "github.com/safespring-community/terraform-modules/v2-compute-instance"
    name            = "rudder-server.example.com"
    image           = "ubuntu-20.04"
@@ -80,7 +76,7 @@ module my_clients {
    name            = "rudder-client-${count.index+1}.example.com"
    image           = "ubuntu-20.04"
    network         = "public"
-   security_groups = [ "default", module.interconnect.name, module.ingress.name ]
+   security_groups = [ "default", module.interconnect.name]
    role            = "rudder_client"
    key_pair_name   = openstack_compute_keypair_v2.skp.name
 }
