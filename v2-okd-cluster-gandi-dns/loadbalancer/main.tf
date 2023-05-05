@@ -1,5 +1,5 @@
 resource "openstack_compute_keypair_v2" "kp" {
-  name       = "Loadalancer key pair"
+  name       = "${var.cluster_name}-pubkey"
   public_key = chomp(file(var.ssh_pubkey_path))
 }
 
