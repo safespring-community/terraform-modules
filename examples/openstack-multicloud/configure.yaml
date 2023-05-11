@@ -1,0 +1,17 @@
+
+- name: Configure back ends
+  hosts: os_metadata_role=http_backend
+  become: yes
+  tasks:
+    - name: wait for nodes to come up
+      wait_for_connection:
+        timeout: 900
+    - name: Install nginx
+      apt:
+        update_cache: yes
+        name: nginx
+        state: present
+    - name: An example index.html file
+      copy:
+        dest: "/var/www/html/index.html"
+        content: "<html><h1>Welcome to {{ansible_hostname}}</h1></html>"
