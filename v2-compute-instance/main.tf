@@ -25,6 +25,7 @@ resource "openstack_compute_instance_v2" "safespring_instance" {
       group = var.servergroup_id
     }
   }
+
   network {
     name = var.network
   }
@@ -48,6 +49,7 @@ resource "openstack_compute_instance_v2" "safespring_instance" {
       boot_index            = 0
     }
   }
+  user_data = var.user_data
 }
 
 resource "openstack_blockstorage_volume_v3" "safespring_vol" {

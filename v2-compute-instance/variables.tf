@@ -33,6 +33,12 @@ variable "name" {
   default     = "hello-safespring"
 }
 
+variable "user_data" {
+  description = "User data. I.e. cloud-init, ignition etc."
+  type = string
+  default = null
+}
+
 variable "role" {
   description = "Instance role. Ends up in metadata and can be used as ansible inventory group"
   type = string
