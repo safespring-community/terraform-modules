@@ -43,7 +43,7 @@ module "sto1_instances" {
   source          = "github.com/safespring-community/terraform-modules/v2-compute-instance"
   name            = "mc-safespring-sto1-${count.index + 1}.saft.in"
   role            = "http_backend"
-  count           = 2
+  count           = var.count_safespring
   network         = "public"
   security_groups = [module.sto1_http_backend_sg.name]
   key_pair_name   = openstack_compute_keypair_v2.sto1kp.name

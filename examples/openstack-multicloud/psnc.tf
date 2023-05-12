@@ -49,7 +49,7 @@ module "psnc_dcw_instances" {
   source          = "github.com/safespring-community/terraform-modules/v2-compute-instance"
   name            = "mc-psnc-dcw-${count.index + 1}.saft.in"
   role            = "http_backend"
-  count           = 2
+  count           = var.count_psnc
   disk_size       = 30
   network         = "jbnet"
   flavor          = "s.2VCPU_4GB"
@@ -61,13 +61,13 @@ module "psnc_dcw_instances" {
 
 resource "openstack_networking_floatingip_v2" "floatip_1" {
   provider = openstack.psnc-dcw
-  count    = 2
+  count    = var.count_psnc
   pool     = "PCSS-DCW-PUB1-EDU"
 }
 
 resource "openstack_compute_floatingip_associate_v2" "fipa_1" {
   provider    = openstack.psnc-dcw
-  count       = 2
+  count       = var.count_psnc
   floating_ip = openstack_networking_floatingip_v2.floatip_1[count.index].address
   instance_id = module.psnc_dcw_instances[count.index].id
 }
