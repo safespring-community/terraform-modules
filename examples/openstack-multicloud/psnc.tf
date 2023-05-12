@@ -71,11 +71,3 @@ resource "openstack_compute_floatingip_associate_v2" "fipa_1" {
   floating_ip = openstack_networking_floatingip_v2.floatip_1[count.index].address
   instance_id = module.psnc_dcw_instances[count.index].id
 }
-
-resource "gandi_livedns_record" "rrlb" {
-  zone   = "saft.in"
-  name   = "www.mcdemo"
-  ttl    = 300
-  type   = "A"
-  values = concat(tolist([for i in module.sto1_instances : i.IPv4]), openstack_networking_floatingip_v2.floatip_1.*.address)
-}
