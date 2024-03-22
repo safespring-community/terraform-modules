@@ -31,7 +31,9 @@ resource "openstack_compute_instance_v2" "k8s_lb" {
   }
 }
 
+
 resource "gandi_livedns_record" "lb_instance" {
+  count       = var.dns_enable
   zone        = var.domain_name
   name        = "lb-${var.cluster_name}"
   ttl         = 300
@@ -40,6 +42,7 @@ resource "gandi_livedns_record" "lb_instance" {
 }
 
 resource "gandi_livedns_record" "master_api" {
+  count       = var.dns_enable
   zone        = var.domain_name
   name        = "api.${var.cluster_name}"
   ttl         = 300
@@ -48,6 +51,7 @@ resource "gandi_livedns_record" "master_api" {
 }
 
 resource "gandi_livedns_record" "master_api_int" {
+  count       = var.dns_enable
   zone        = var.domain_name
   name        = "api-int.${var.cluster_name}"
   ttl         = 300
@@ -56,6 +60,7 @@ resource "gandi_livedns_record" "master_api_int" {
 }
 
 resource "gandi_livedns_record" "apps" {
+  count       = var.dns_enable
   zone        = var.domain_name
   name        = "*.apps.${var.cluster_name}"
 #  description = "apps record (DNS-RR)"

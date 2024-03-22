@@ -1,3 +1,8 @@
+variable "dns_enable" {
+  type        = number
+  description = "DNS enable"
+}
+
 variable "lb_image_name" {
   type        = string
   description = "Image name for loadbalancer"

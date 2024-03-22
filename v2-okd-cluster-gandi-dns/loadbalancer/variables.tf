@@ -1,3 +1,8 @@
+variable "dns_enable" {
+  type        = number
+  description = "0 if dns is disabled 1 if enabled"
+}
+
 variable "ssh_pubkey_path" {
   type        = string
   description = "Full path of the ssh public key file"
