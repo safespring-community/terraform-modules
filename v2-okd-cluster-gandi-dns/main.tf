@@ -1,6 +1,7 @@
 module "loadbalancer" {
   source                    = "./loadbalancer"
-  image_id             = data.openstack_images_image_v2.lb_image.id
+  dns_enable                = var.dns_enable
+  image_id                  = data.openstack_images_image_v2.lb_image.id
   cluster_name              = var.cluster_name
   domain_name               = var.domain_name
   flavor_name               = var.openstack_loadbalancer_flavor_name
@@ -23,6 +24,7 @@ module "bootstrap" {
 
 module "masters" {
   source          = "./masters"
+  dns_enable      = var.dns_enable
   base_image_id   = data.openstack_images_image_v2.base_image.id
   cluster_name    = var.cluster_name
   domain_name     = var.domain_name

@@ -1,3 +1,7 @@
+variable "dns_enable" {
+  type        = number
+  description = "DNS provider"
+}
 variable "affinity" {
   type        = string
   description = "Affinity for masters. Choose between anti-affinity (hard) and soft-anti-affinity "
