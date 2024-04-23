@@ -63,6 +63,10 @@ variable "openstack_master_flavor_name" {
   description = "Instance size for the master node(s). Example: `m1.medium`."
 }
 
+variable "lb_network_name" {
+  description = "Name of the network to use for loadbalancer"
+  default     = "public"
+}
 variable "network_name" {
   description = "name of the internal network to use"
   default     = "dualstack"
