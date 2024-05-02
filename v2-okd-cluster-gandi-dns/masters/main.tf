@@ -85,27 +85,3 @@ resource "openstack_compute_instance_v2" "master_conf" {
     role             = "master"
   }
 }
-
-locals {
-  dns_a_count   = var.dns_enable == 1 ? var.instance_count : 0
-  dns_srv_count = var.dns_enable == 1 ? 1 : 0
-}
-
-resource "gandi_livedns_record" "master_instances" {
-  zone        = var.domain_name
-  name        = "master-${count.index+1}-${var.cluster_name}"
-  count       = local.dns_a_count
-  ttl         = 300
-  type        = "A"
-  values      = [element(openstack_compute_instance_v2.master_conf.*.access_ip_v4,count.index)]
-}
-
-
-resource "gandi_livedns_record" "etcd_srv" {
-  count       = local.dns_srv_count
-  zone        = var.domain_name
-  name        = "_etcd-server-ssl._tcp.${var.cluster_name}"
-  ttl         = 300
-  type        = "SRV"
-  values      = formatlist("0 10 2380 etcd-%s-${var.cluster_name}.${var.domain_name}.",range(1,var.instance_count+1))
-}

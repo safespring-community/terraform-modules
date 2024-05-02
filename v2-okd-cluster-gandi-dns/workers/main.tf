@@ -113,12 +113,3 @@ resource "openstack_compute_instance_v2" "k8s_worker" {
     role             = "worker"
   }
 }
-
-#resource "gandi_livedns_record" "worker_instances" {
-#  zone        = var.domain_name
-#  name        = "${var.prefix}-${count.index+1}-${var.cluster_name}"
-#  count       = var.instance_count
-#  ttl         = 300
-#  type        = "A"
-#  values      = [element(openstack_compute_instance_v2.k8s_worker.*.access_ip_v4,count.index)]
-#}
