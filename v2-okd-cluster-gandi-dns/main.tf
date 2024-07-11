@@ -62,8 +62,10 @@ module "topology" {
 
 data "openstack_images_image_v2" "base_image" {
   name = var.openstack_base_image_name
+  most_recent = true
 }
 
 data "openstack_images_image_v2" "lb_image" {
   name = var.lb_image_name
+  most_recent = true
 }
