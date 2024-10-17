@@ -28,13 +28,6 @@ resource "openstack_compute_secgroup_v2" "k8s" {
   description = "${var.cluster_name} - Cluster access"
 
   rule {
-    ip_protocol = "icmp"
-    from_port   = "-1"
-    to_port     = "-1"
-    cidr        = "0.0.0.0/0"
-  }
-
-  rule {
     ip_protocol = "tcp"
     from_port   = "1"
     to_port     = "65535"
