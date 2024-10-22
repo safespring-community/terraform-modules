@@ -59,6 +59,9 @@ data "ignition_config" "master_ignition_config" {
 resource "openstack_compute_servergroup_v2" "servergroup" {
   name     = "${var.cluster_name}-masters"
   policies = [ var.affinity ]
+  lifecycle {
+    ignore_changes = all
+  }
 }
 
 resource "openstack_compute_instance_v2" "master_conf" {
@@ -83,5 +86,8 @@ resource "openstack_compute_instance_v2" "master_conf" {
 
   metadata = {
     role             = "master"
+  }
+  lifecycle {
+    ignore_changes = all
   }
 }

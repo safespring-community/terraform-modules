@@ -26,6 +26,7 @@ resource "openstack_compute_instance_v2" "safespring_instance" {
     }
   }
 
+
   network {
     name = var.network
   }
@@ -48,6 +49,9 @@ resource "openstack_compute_instance_v2" "safespring_instance" {
       delete_on_termination = true
       boot_index            = 0
     }
+  }
+  lifecycle {
+    ignore_changes = all
   }
   user_data = var.user_data
 }
