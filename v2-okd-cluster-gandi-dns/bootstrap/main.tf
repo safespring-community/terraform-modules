@@ -16,5 +16,6 @@ resource "openstack_compute_instance_v2" "bootstrap" {
 
   metadata = {
     role             = "boot"
+    cluster_name     = "${var.cluster_name}.${var.domain_name}"
   }
 }

@@ -111,5 +111,6 @@ resource "openstack_compute_instance_v2" "k8s_worker" {
 
   metadata = {
     role             = "worker"
+    cluster_name     = "${var.cluster_name}.${var.domain_name}"
   }
 }

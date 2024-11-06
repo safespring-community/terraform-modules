@@ -28,6 +28,7 @@ resource "openstack_compute_instance_v2" "k8s_lb" {
 
   metadata = {
     role             = "lb"
+    cluster_name     = "${var.cluster_name}.${var.domain_name}"
   }
 }
 

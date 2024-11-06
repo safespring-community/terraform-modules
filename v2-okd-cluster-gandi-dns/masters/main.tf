@@ -86,6 +86,7 @@ resource "openstack_compute_instance_v2" "master_conf" {
 
   metadata = {
     role             = "master"
+    cluster_name     = "${var.cluster_name}.${var.domain_name}"
   }
   lifecycle {
     ignore_changes = all
