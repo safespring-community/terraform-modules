@@ -42,7 +42,7 @@ EOF
 #}
 
 resource "openstack_compute_servergroup_v2" "servergroup" {
-  name     = "${var.cluster_name}-${var.workerset_key}-workerset"
+  name     = "${var.cluster_name}-workers"
   policies = [ "soft-anti-affinity" ]
 }
 
